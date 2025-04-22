@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+---
+// import "./_src/scripts/unpack.js"
+// import "./_src/scripts/app.js"
+import "./_src/styles/theme.css"
+import "./_src/app.css"
+---
+
 <html>
   <head>
     <meta charset="utf-8" />
@@ -15,9 +21,9 @@
     />
     <meta
       property="og:image"
-      content="https://dex.silicak.es/assets/DEx-logo.png"
+      content="_src/assets/DEx-logo.png"
     />
-    <meta property="og:url" content="https://dex.silicak.es" />
+    <meta property="og:url" content="https://delugecommunity.com/apps/dex" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DEx: Deluge EXtensions" />
 
@@ -33,20 +39,18 @@
     />
     <meta
       name="twitter:image"
-      content="https://dex.silicak.es/assets/DEx-logo.png"
+      content="_src/assets/DEx-logo.png"
     />
 
-    <script src="./scripts/unpack.js"></script>
-    <script src="./scripts/app.js"></script>
-    <link rel="stylesheet" href="styles/theme.css" />
-    <link rel="stylesheet" href="app.css" />
+    <script src="./_src/scripts/unpack.js"></script>
+    <script src="./_src/scripts/app.js"></script>
     <title>DEx: Deluge Extensions</title>
   </head>
 
   <body>
     <header id="topBar" class="control-group top-bar">
       <div class="bar-section logo-container">
-        <img src="assets/DEx-logo.png" alt="DEx Logo" class="app-logo" />
+        <img src="_src/assets/DEx-logo.png" alt="DEx Logo" class="app-logo" />
       </div>
       <div class="bar-section midi-select">
         <label>MIDI Devices</label>
@@ -101,7 +105,7 @@
           class="settings-button"
           title="Advanced Settings"
         >
-          <img src="assets/cog.svg" alt="Settings" class="settings-icon" />
+          <img src="_src/assets/cog.svg" alt="Settings" class="settings-icon" />
         </button>
       </div>
     </header>
@@ -131,7 +135,7 @@
     <div id="debugDrawer" class="side-drawer">
       <div class="drawer-content">
         <button id="closeDebugDrawerButton" class="close-button">
-          <img src="assets/close.svg" alt="Close" class="close-icon" />
+          <img src="_src/assets/close.svg" alt="Close" class="close-icon" />
         </button>
 
         <!-- Theme Controls -->
@@ -277,7 +281,7 @@
     </script>
 
     <!-- Theme Manager -->
-    <script src="./scripts/themeManager.js"></script>
+    <script src="./_src/scripts/themeManager.js"></script>
         <!-- Cloudflare Web Analytics -->
         <script
         defer
