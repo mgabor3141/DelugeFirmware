@@ -35,7 +35,7 @@
     box-shadow 0.3s ease;
 }
 
-body[data-theme="dark"] {
+html[data-theme="dark"] {
   /* Dark Theme Overrides */
   --color-background: linear-gradient(
     145deg,

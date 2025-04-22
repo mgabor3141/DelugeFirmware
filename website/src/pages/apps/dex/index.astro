@@ -1,8 +1,14 @@
 ---
+import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro"
+import ThemeProvider from "@astrojs/starlight/components/ThemeProvider.astro"
+
 import { Image } from 'astro:assets';
 import dexLogo from "./_src/assets/DEx-logo.png"
 import cog from "./_src/assets/cog.svg"
 import close from "./_src/assets/close.svg"
+
+import "../../../styles/starlight.css"
+import 'virtual:starlight/user-css';
 
 import "./_src/styles/theme.css"
 import "./_src/app.css"
@@ -41,6 +47,8 @@ import "./_src/app.css"
 
     <script src="./_src/scripts/app.js"></script>
     <title>DEx: Deluge Extensions</title>
+
+    <ThemeProvider />
   </head>
 
   <body>
@@ -134,40 +142,10 @@ import "./_src/app.css"
           <Image src={close} alt="Close" class="close-icon" />
         </button>
 
-        <!-- Theme Controls -->
         <div class="control-group">
           <h3>Theme Settings</h3>
-          <div class="theme-controls">
-            <div class="theme-options">
-              <div class="theme-option">
-                <input
-                  type="radio"
-                  id="themeLight"
-                  name="theme-select"
-                  value="light"
-                />
-                <label for="themeLight">Light</label>
-              </div>
-              <div class="theme-option">
-                <input
-                  type="radio"
-                  id="themeDark"
-                  name="theme-select"
-                  value="dark"
-                />
-                <label for="themeDark">Dark</label>
-              </div>
-              <div class="theme-option">
-                <input
-                  type="radio"
-                  id="themeSystem"
-                  name="theme-select"
-                  value="system"
-                  checked
-                />
-                <label for="themeSystem">System</label>
-              </div>
-            </div>
+          <div class="max-w-fit">
+            <ThemeSelect />
           </div>
         </div>
 
@@ -275,8 +253,5 @@ import "./_src/app.css"
         })
       })
     </script>
-
-    <!-- Theme Manager -->
-    <script src="./_src/scripts/themeManager.js"></script>
   </body>
 </html>
