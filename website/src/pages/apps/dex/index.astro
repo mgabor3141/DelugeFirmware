@@ -1,11 +1,14 @@
 ---
-// import "./_src/scripts/unpack.js"
-// import "./_src/scripts/app.js"
+import { Image } from 'astro:assets';
+import dexLogo from "./_src/assets/DEx-logo.png"
+import cog from "./_src/assets/cog.svg"
+import close from "./_src/assets/close.svg"
+
 import "./_src/styles/theme.css"
 import "./_src/app.css"
 ---
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,10 +22,7 @@ import "./_src/app.css"
       property="og:description"
       content="Unlock the full potential of your Synthstrom Deluge with DEx! A web-based tool offering display mirroring, debugging, and advanced control via WebMIDI. Try the live demo!"
     />
-    <meta
-      property="og:image"
-      content="_src/assets/DEx-logo.png"
-    />
+    <meta property="og:image" content="./_src/assets/DEx-logo.png" />
     <meta property="og:url" content="https://delugecommunity.com/apps/dex" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DEx: Deluge EXtensions" />
@@ -37,12 +37,8 @@ import "./_src/app.css"
       name="twitter:description"
       content="Unlock the full potential of your Synthstrom Deluge with DEx! A web-based tool offering display mirroring, debugging, and advanced control via WebMIDI."
     />
-    <meta
-      name="twitter:image"
-      content="_src/assets/DEx-logo.png"
-    />
+    <meta name="twitter:image" content="./_src/assets/DEx-logo.png" />
 
-    <script src="./_src/scripts/unpack.js"></script>
     <script src="./_src/scripts/app.js"></script>
     <title>DEx: Deluge Extensions</title>
   </head>
@@ -50,20 +46,20 @@ import "./_src/app.css"
   <body>
     <header id="topBar" class="control-group top-bar">
       <div class="bar-section logo-container">
-        <img src="_src/assets/DEx-logo.png" alt="DEx Logo" class="app-logo" />
+        <Image src={dexLogo} alt="DEx Logo" class="app-logo" />
       </div>
       <div class="bar-section midi-select">
         <label>MIDI Devices</label>
         <div class="select-container">
           <label for="chooseIn">In:</label>
           <select id="chooseIn">
-            <option label="(none)" value="" id="noneInput" />
+            <option label="(none)" value="" id="noneInput"></option>
           </select>
         </div>
         <div class="select-container">
           <label for="chooseOut">Out:</label>
           <select id="chooseOut">
-            <option label="(none)" value="" id="noneOutput" />
+            <option label="(none)" value="" id="noneOutput"></option>
           </select>
         </div>
       </div>
@@ -105,7 +101,7 @@ import "./_src/app.css"
           class="settings-button"
           title="Advanced Settings"
         >
-          <img src="_src/assets/cog.svg" alt="Settings" class="settings-icon" />
+          <Image src={cog} alt="Settings" class="settings-icon" />
         </button>
       </div>
     </header>
@@ -135,7 +131,7 @@ import "./_src/app.css"
     <div id="debugDrawer" class="side-drawer">
       <div class="drawer-content">
         <button id="closeDebugDrawerButton" class="close-button">
-          <img src="_src/assets/close.svg" alt="Close" class="close-icon" />
+          <Image src={close} alt="Close" class="close-icon" />
         </button>
 
         <!-- Theme Controls -->
@@ -275,19 +271,12 @@ import "./_src/app.css"
       // Helper for example clicks
       document.querySelectorAll(".sysex-example").forEach((el) => {
         el.addEventListener("click", function () {
-          document.getElementById("customSysExInput").value = this.textContent;
-        });
-      });
+          document.getElementById("customSysExInput").value = this.textContent
+        })
+      })
     </script>
 
     <!-- Theme Manager -->
     <script src="./_src/scripts/themeManager.js"></script>
-        <!-- Cloudflare Web Analytics -->
-        <script
-        defer
-        src="https://static.cloudflareinsights.com/beacon.min.js"
-        data-cf-beacon='{"token": "007fc9fdbe2140d6b8bd89d98ac631d2"}'
-      ></script>
-      <!-- End Cloudflare Web Analytics -->
   </body>
 </html>

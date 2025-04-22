@@ -1,3 +1,5 @@
+import { unpack_7to8_rle } from "./unpack.ts"
+
 /** @type {MIDIAccess} */
 let midi = null
 /** @type {MIDIInput} */

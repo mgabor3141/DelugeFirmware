@@ -5,7 +5,10 @@
  * @returns {Uint8Array} The unpacked 8-bit data.
  * @throws {Error} If unpacking fails due to invalid data or buffer issues.
  */
-function unpack_7to8_rle(src, estimatedDstSize) {
+export function unpack_7to8_rle(
+  src: Uint8Array,
+  estimatedDstSize?: number,
+): Uint8Array {
   // Error codes matching Rust implementation
   const ERROR_CODES = {
     INCOMPLETE_PACKET: -1,
@@ -14,10 +17,12 @@ function unpack_7to8_rle(src, estimatedDstSize) {
     BUFFER_TOO_SMALL_DENSE: -11,
     BUFFER_TOO_SMALL_RLE: -12,
     UNKNOWN_ERROR: -99,
-  }
+  } as const
+
+  type ErrorCode = (typeof ERROR_CODES)[keyof typeof ERROR_CODES]
 
   // Map error codes to descriptive messages (matching Rust)
-  const ERROR_MESSAGES = {
+  const ERROR_MESSAGES: Record<ErrorCode, string> = {
     [-1]: "Incomplete data packet",
     [-3]: "Missing run length extension byte",
     [-7]: "Invalid dense packet marker",
@@ -26,19 +31,24 @@ function unpack_7to8_rle(src, estimatedDstSize) {
     [-99]: "Unknown error",
   }
 
+  // Custom error interface
+  type RLEError = Error & {
+    code: ErrorCode
+  }
+
   /**
    * Creates an error with a standard format matching the Rust implementation
    * @param {number} code - Error code from ERROR_CODES
    * @param {string} [additionalInfo] - Optional additional context
    * @returns {Error} The formatted error
    */
-  function createError(code, additionalInfo = "") {
+  function createError(code: ErrorCode, additionalInfo = ""): RLEError {
     const message = ERROR_MESSAGES[code] || "Unknown error"
     const fullMessage = `Failed to unpack RLE data: ${message} (code: ${code})${additionalInfo ? ` - ${additionalInfo}` : ""}`
     console.error(fullMessage)
 
     // Create an error object with both message and code
-    const error = new Error(fullMessage)
+    const error = new Error(fullMessage) as RLEError
     error.code = code
     return error
   }
@@ -57,17 +67,17 @@ function unpack_7to8_rle(src, estimatedDstSize) {
    * @param {number} errorCode - Error code to use if buffer can't be grown
    * @returns {boolean} True if capacity is ensured, throws otherwise
    */
-  const ensureDstCapacity = (needed, errorCode) => {
+  const ensureDstCapacity = (needed: number, errorCode: ErrorCode) => {
     if (d + needed > dst.length) {
       try {
         // Grow buffer if needed
         const newSize = Math.max(dst.length * 2, d + needed + 1024) // Add some padding
         console.log(`Growing unpack buffer from ${dst.length} to ${newSize}`)
-        let newDst = new Uint8Array(newSize)
+        const newDst = new Uint8Array(newSize)
         newDst.set(dst.subarray(0, d), 0)
         dst = newDst
         return true
-      } catch (e) {
+      } catch {
         // If we can't allocate more memory, throw with appropriate error code
         throw createError(
           errorCode,
@@ -176,18 +186,12 @@ function unpack_7to8_rle(src, estimatedDstSize) {
     console.log(`Successfully unpacked RLE data: ${d} bytes`)
     // Return only the populated part of the buffer
     return dst.subarray(0, d)
-  } catch (e) {
+  } catch (e: unknown) {
     // If it's already one of our formatted errors, re-throw it
-    if (e.code) throw e
+    if (typeof e === "object" && e !== null && "code" in e) throw e
 
     // Otherwise wrap other errors as unknown errors
-    throw createError(ERROR_CODES.UNKNOWN_ERROR, e.message)
+    const message = e instanceof Error ? e.message : String(e)
+    throw createError(ERROR_CODES.UNKNOWN_ERROR, message)
   }
-}
-
-// Export if used as a module, otherwise assign to window for script tag usage
-if (typeof module !== "undefined" && module.exports) {
-  module.exports = { unpack_7to8_rle }
-} else if (typeof window !== "undefined") {
-  window.unpack_7to8_rle = unpack_7to8_rle
 }
