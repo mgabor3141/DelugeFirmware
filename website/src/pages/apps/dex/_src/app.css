@@ -19,7 +19,6 @@ p {
   /* padding: 0; */
 }
 
-
 /* Top bar styles */
 .top-bar {
   display: flex;
@@ -267,7 +266,11 @@ input:checked + .slider:before {
   border-left: 1px solid var(--color-border);
   box-shadow: -3px 0 6px var(--color-drawer-shadow);
   transform: translateX(100%);
-  transition: transform 0.3s ease-in-out, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease-in-out,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   padding: 20px;
   overflow-y: auto;
   z-index: 1000;
@@ -592,6 +595,10 @@ body.fullscreen-mode #screenCanvas {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0.7; }
-  to { opacity: 1; }
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 1;
+  }
 }

@@ -25,17 +25,24 @@
   --color-canvas-fg: #eeeeee;
   --color-canvas-bg: #111111;
   --color-disabled: #cccccc;
-  
+
   /* Icon styling */
   --icon-filter: none;
-  
+
   /* Transition time for theme switching */
-  --theme-transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  --theme-transition:
+    background 0.3s ease, color 0.3s ease, border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-body[data-theme='dark'] {
+body[data-theme="dark"] {
   /* Dark Theme Overrides */
-  --color-background: linear-gradient(145deg, #1e0a47, #4f0f7a, #90189e); /* Synthwave Gradient */
+  --color-background: linear-gradient(
+    145deg,
+    #1e0a47,
+    #4f0f7a,
+    #90189e
+  ); /* Synthwave Gradient */
   --color-text-primary: #f8f9fa;
   --color-text-secondary: #adb5bd;
   --color-primary: #8a4fff; /* Adjusted primary for dark */
@@ -54,10 +61,10 @@ body[data-theme='dark'] {
   --color-status-connected: #4caf50;
   --color-status-error: #f44336;
   --color-drawer-shadow: rgba(0, 0, 0, 0.3);
-  
+
   /* Icon styling for dark theme */
   --icon-filter: brightness(0) invert(1);
-  
+
   /* Keep gradient fixed during scroll */
   background-attachment: fixed;
-} 
+}
